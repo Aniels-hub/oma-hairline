@@ -1,0 +1,1196 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Oma Hairline – Premium Wigs &amp; Hair</title>
+<meta name="description" content="Premium quality wigs crafted with care. Ethically sourced, bespoke hair pieces, HD lace wigs, and more from Oma Hairline." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500&family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-..." crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ===== ANNOUNCEMENT BAR ===== -->
+  <div class="announcement-bar" role="banner">
+    <p id="announcementText">Nationwide Delivery 🚚 Secure Payments 💳 Premium Hair &amp; Beauty Essentials</p>
+  </div>
+
+  <!-- ===== NAVIGATION ===== -->
+  <nav class="navbar" id="navbar" role="navigation" aria-label="Main navigation">
+    <div class="container">
+      <a href="#hero" class="logo">OMA <span>Hairlines</span></a>
+
+      <ul class="nav-links" role="list">
+        <li><a href="#hero" class="active" aria-current="page">Home</a></li>
+        <li><a href="#new-arrivals">Shop</a></li>
+        <li><a href="#best-sellers">Collections</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#footer">Contact</a></li>
+        <li><a href="#cartDrawer">Cart</a></li>
+      </ul>
+
+      <div class="nav-right">
+        <a href="#new-arrivals" aria-label="Search"><i class="fas fa-search" aria-hidden="true"></i></a>
+        <a href="#about" aria-label="My account"><i class="fas fa-user" aria-hidden="true"></i></a>
+        <button type="button" class="cart-toggle" id="cartToggle" aria-label="Open cart">
+          <i class="fas fa-shopping-bag" aria-hidden="true"></i>
+          <span class="cart-count" id="cartCount" aria-live="polite">0</span>
+        </button>
+        <button class="hamburger" id="hamburger" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="mobileNav">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </div>
+
+    <div class="mobile-nav" id="mobileNav" role="menu">
+      <a href="#hero" role="menuitem" class="active">Home</a>
+      <a href="#new-arrivals" role="menuitem">Shop</a>
+      <a href="#best-sellers" role="menuitem">Collections</a>
+      <a href="#about" role="menuitem">About</a>
+      <a href="#footer" role="menuitem">Contact</a>
+      <a href="#cartDrawer" role="menuitem">Cart</a>
+    </div>
+  </nav>
+
+  <!-- Cart Drawer -->
+  <div class="cart-overlay" id="cartOverlay"></div>
+  <div class="cart-drawer" id="cartDrawer">
+    <div class="cart-drawer-inner">
+      <div class="cart-header">
+        <h2>Your Cart</h2>
+        <button class="cart-close" id="cartClose" aria-label="Close cart">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+        </button>
+      </div> 
+
+      <div class="cart-items" id="cartItems">
+        <div class="cart-empty" id="cartEmpty">
+          <div class="cart-empty-graphic" aria-hidden="true">
+            <div class="cart-empty-orb"></div>
+            <div class="cart-empty-bag">
+              <i class="fas fa-bag-shopping"></i>
+            </div>
+          </div>
+          <p class="cart-empty-title">Your cart is empty</p>
+          <p class="cart-empty-sub">Add a few favourites and we’ll keep them ready for your checkout.</p>
+          <a href="#new-arrivals" class="cart-empty-action">Browse bestsellers</a>
+        </div>
+      </div> 
+
+      <div class="cart-footer" id="cartFooter" hidden>
+        <div class="cart-subtotal">
+          <span>Subtotal</span>
+          <span id="cartSubtotal">₦0</span>
+        </div>
+        <div class="cart-footer-actions">
+          <button class="cart-clear-btn" id="clearCartBtn" type="button">Clear cart</button>
+        </div>
+        <div class="checkout-fields">
+          <input type="text" id="checkoutName" class="checkout-input" placeholder="Your full name" />
+          <input type="tel" id="checkoutPhone" class="checkout-input" placeholder="Your phone number" />
+        </div>
+        <button class="btn-primary" style="width:100%;" id="checkoutBtn">Checkout</button>
+        <p class="cart-shipping-note">Shipping calculated at checkout</p>
+      </div>
+    </div>
+  </div>
+
+  <main>
+
+    <!-- Hero -->
+    <section class="hero" id="hero">
+      <div class="sr-only" style="position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden;">Oma Hairline main page</div>
+      <div class="hero-media" id="heroMedia">
+        <img src="images/hero-curly.jpg" alt="Premium wigs and beauty essentials" class="hero-slide active" />
+        <img src="images/hero-straight.jpg" alt="Silky straight wigs" class="hero-slide" />
+        <img src="images/product-8.jpg" alt="Curly HD lace wig" class="hero-slide" />
+        <div class="hero-overlay"></div>
+      </div>
+      <div class="hero-content">
+        <!-- <p class="hero-eyebrow" id="heroEyebrow">Premium wigs &amp; beauty essentials</p> -->
+        <h1>Premium Hair &amp; Beauty <span>Essentials</span></h1>
+        <p id="heroSubtext">Carefully selected products designed to help you look and feel your best every day.</p>
+        <div class="hero-actions">
+          <a id="heroBtnPrimary" href="#new-arrivals" class="btn-white btn-small" aria-label="Shop our products">Shop Now</a>
+          <a id="heroBtnSecondary" href="https://wa.me/2349135028166?text=Hi%20Oma!%20I%20would%20like%20to%20place%20an%20order%20for%20a%20wig%20or%20beauty%20product." class="btn-primary btn-small" target="_blank" rel="noopener noreferrer" aria-label="Place your order on WhatsApp">
+            <i class="fab fa-whatsapp" aria-hidden="true"></i> Place Your Order
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- New Arrivals -->
+    <section id="new-arrivals" class="section">
+      <div class="section-padding">
+        <h1 class="section-title fade-in">New Ins</h1>
+
+        <div class="new-arrivals-grid">
+
+          <!-- ===== EXISTING IMAGE CARDS ===== -->
+          <article class="product-card" aria-label="Featured New Arrival">
+            <div class="image" aria-hidden="true">
+              <img src="images/product-8.jpg" alt="New arrival" />
+              <i class="fas fa-gem"></i>
+              <span class="badge">New</span>
+            </div>
+            <div class="info">
+              <h4>HD Lace Wig (Curly)</h4>
+              <div class="price">₦95,000</div>
+              <div class="rating" aria-label="5 out of 5 stars, 41 reviews">
+                <i class="fas fa-star" aria-hidden="true"></i>
+                <i class="fas fa-star" aria-hidden="true"></i>
+                <i class="fas fa-star" aria-hidden="true"></i>
+                <i class="fas fa-star" aria-hidden="true"></i>
+                <i class="fas fa-star" aria-hidden="true"></i>
+                <span>(41)</span>
+              </div>
+              <div class="actions">
+                <button type="button" class="btn btn-primary btn-sm add-to-cart">Add to Cart</button>
+                <button type="button" class="btn btn-outline btn-sm">Buy Now</button>
+              </div>
+            </div>
+          </article>
+
+          <article class="product-card">
+            <div class="image" aria-hidden="true">
+              <img src="images/product-1.jpg" alt="Luxury Wig Bundle" />
+              <i class="fas fa-crown"></i>
+              <span class="badge">Premium</span>
+            </div>
+            <div class="info">
+              <h4>Luxury Wig Bundle</h4>
+              <div class="price">₦45,000</div>
+              <div class="rating" aria-label="5 out of 5 stars, 56 reviews">
+                <i class="fas fa-star" aria-hidden="true"></i>
+                <i class="fas fa-star" aria-hidden="true"></i>
+                <i class="fas fa-star" aria-hidden="true"></i>
+                <i class="fas fa-star" aria-hidden="true"></i>
+                <i class="fas fa-star" aria-hidden="true"></i>
+                <span>(56)</span>
+              </div>
+              <div class="actions">
+                <button type="button" class="btn btn-primary btn-sm add-to-cart">Add to Cart</button>
+                <button type="button" class="btn btn-outline btn-sm">Buy Now</button>
+              </div>
+            </div>
+          </article>
+
+          <article class="product-card">
+            <div class="image" aria-hidden="true">
+              <img src="images/product-2.jpg" alt="Gift Box" />
+              <i class="fas fa-gift"></i>
+              <span class="badge">Gift</span>
+            </div>
+            <div class="info">
+              <h4>Gift Box Set</h4>
+              <div class="price">₦18,500</div>
+              <div class="rating" aria-label="4.5 out of 5 stars, 62 reviews">
+                <i class="fas fa-star" aria-hidden="true"></i>
+                <i class="fas fa-star" aria-hidden="true"></i>
+                <i class="fas fa-star" aria-hidden="true"></i>
+                <i class="fas fa-star" aria-hidden="true"></i>
+                <i class="fas fa-star-half-alt" aria-hidden="true"></i>
+                <span>(62)</span>
+              </div>
+              <div class="actions">
+                <button type="button" class="btn btn-primary btn-sm add-to-cart">Add to Cart</button>
+                <button type="button" class="btn btn-outline btn-sm">Buy Now</button>
+              </div>
+            </div>
+          </article>
+
+          <article class="product-card">
+            <div class="image" aria-hidden="true">
+              <img src="images/product-3.jpg" alt="Hair Serum" />
+              <i class="fas fa-vial"></i>
+              <span class="badge">New</span>
+            </div>
+            <div class="info">
+              <h4>Hair Growth Serum</h4>
+              <div class="price">₦21,000</div>
+              <div class="rating" aria-label="5 out of 5 stars, 49 reviews">
+                <i class="fas fa-star" aria-hidden="true"></i>
+                <i class="fas fa-star" aria-hidden="true"></i>
+                <i class="fas fa-star" aria-hidden="true"></i>
+                <i class="fas fa-star" aria-hidden="true"></i>
+                <i class="fas fa-star" aria-hidden="true"></i>
+                <span>(49)</span>
+              </div>
+              <div class="actions">
+                <button type="button" class="btn btn-primary btn-sm add-to-cart">Add to Cart</button>
+                <button type="button" class="btn btn-outline btn-sm">Buy Now</button>
+              </div>
+            </div>
+          </article>
+
+          <!-- ===== VIDEO PRODUCT CARDS ===== -->
+          <article class="product-card video-card" data-video="videos/ladyGagaii1.mp4">
+            <div class="image video-container" aria-hidden="true">
+              <video class="video-product" src="videos/ladyGagaii1.mp4" muted playsinline preload="metadata"></video>
+              <div class="video-play-overlay"><i class="fas fa-play"></i></div>
+              <i class="fas fa-crown"></i>
+              <span class="badge">Video</span>
+            </div>
+            <div class="info">
+              <h4>Luxury Curly Wig</h4>
+              <div class="price">₦85,000</div>
+              <div class="rating" aria-label="5 out of 5 stars, 33 reviews">
+                <i class="fas fa-star" aria-hidden="true"></i>
+                <i class="fas fa-star" aria-hidden="true"></i>
+                <i class="fas fa-star" aria-hidden="true"></i>
+                <i class="fas fa-star" aria-hidden="true"></i>
+                <i class="fas fa-star" aria-hidden="true"></i>
+                <span>(33)</span>
+              </div>
+              <div class="actions">
+                <button type="button" class="btn btn-primary btn-sm add-to-cart">Add to Cart</button>
+                <button type="button" class="btn btn-outline btn-sm">Buy Now</button>
+              </div>
+            </div>
+          </article>
+
+          <article class="product-card video-card" data-video="videos/ladyceeI1.mp4">
+            <div class="image video-container" aria-hidden="true">
+              <video class="video-product" src="videos/ladyceeI1.mp4" muted playsinline preload="metadata"></video>
+              <div class="video-play-overlay"><i class="fas fa-play"></i></div>
+              <i class="fas fa-gem"></i>
+              <span class="badge">New</span>
+            </div>
+            <div class="info">
+              <h4>HD Lace Wig Straight</h4>
+              <div class="price">₦110,000</div>
+              <div class="rating" aria-label="5 out of 5 stars, 28 reviews">
+                <i class="fas fa-star" aria-hidden="true"></i>
+                <i class="fas fa-star" aria-hidden="true"></i>
+                <i class="fas fa-star" aria-hidden="true"></i>
+                <i class="fas fa-star" aria-hidden="true"></i>
+                <i class="fas fa-star" aria-hidden="true"></i>
+                <span>(28)</span>
+              </div>
+              <div class="actions">
+                <button type="button" class="btn btn-primary btn-sm add-to-cart">Add to Cart</button>
+                <button type="button" class="btn btn-outline btn-sm">Buy Now</button>
+              </div>
+            </div>
+          </article>
+
+          <article class="product-card video-card" data-video="videos/ladyceeI2.mp4">
+            <div class="image video-container" aria-hidden="true">
+              <video class="video-product" src="videos/ladyceeI2.mp4" muted playsinline preload="metadata"></video>
+              <div class="video-play-overlay"><i class="fas fa-play"></i></div>
+              <i class="fas fa-gem"></i>
+              <span class="badge">Premium</span>
+            </div>
+            <div class="info">
+              <h4>Body Wave Wig</h4>
+              <div class="price">₦95,000</div>
+              <div class="rating" aria-label="4.5 out of 5 stars, 45 reviews">
+                <i class="fas fa-star" aria-hidden="true"></i>
+                <i class="fas fa-star" aria-hidden="true"></i>
+                <i class="fas fa-star" aria-hidden="true"></i>
+                <i class="fas fa-star" aria-hidden="true"></i>
+                <i class="fas fa-star-half-alt" aria-hidden="true"></i>
+                <span>(45)</span>
+              </div>
+              <div class="actions">
+                <button type="button" class="btn btn-primary btn-sm add-to-cart">Add to Cart</button>
+                <button type="button" class="btn btn-outline btn-sm">Buy Now</button>
+              </div>
+            </div>
+          </article>
+
+          <article class="product-card video-card" data-video="videos/ladyceeI3.mp4">
+            <div class="image video-container" aria-hidden="true">
+              <video class="video-product" src="videos/ladyceeI3.mp4" muted playsinline preload="metadata"></video>
+              <div class="video-play-overlay"><i class="fas fa-play"></i></div>
+              <i class="fas fa-gem"></i>
+              <span class="badge">Hot</span>
+            </div>
+            <div class="info">
+              <h4>Kinky Curly Wig</h4>
+              <div class="price">₦78,000</div>
+              <div class="rating" aria-label="5 out of 5 stars, 52 reviews">
+                <i class="fas fa-star" aria-hidden="true"></i>
+                <i class="fas fa-star" aria-hidden="true"></i>
+                <i class="fas fa-star" aria-hidden="true"></i>
+                <i class="fas fa-star" aria-hidden="true"></i>
+                <i class="fas fa-star" aria-hidden="true"></i>
+                <span>(52)</span>
+              </div>
+              <div class="actions">
+                <button type="button" class="btn btn-primary btn-sm add-to-cart">Add to Cart</button>
+                <button type="button" class="btn btn-outline btn-sm">Buy Now</button>
+              </div>
+            </div>
+          </article>
+
+          <article class="product-card video-card" data-video="videos/ladyceeI4.mp4">
+            <div class="image video-container" aria-hidden="true">
+              <video class="video-product" src="videos/ladyceeI4.mp4" muted playsinline preload="metadata"></video>
+              <div class="video-play-overlay"><i class="fas fa-play"></i></div>
+              <i class="fas fa-gem"></i>
+              <span class="badge">New</span>
+            </div>
+            <div class="info">
+              <h4>Deep Wave Wig</h4>
+              <div class="price">₦88,000</div>
+              <div class="rating" aria-label="4.5 out of 5 stars, 39 reviews">
+                <i class="fas fa-star" aria-hidden="true"></i>
+                <i class="fas fa-star" aria-hidden="true"></i>
+                <i class="fas fa-star" aria-hidden="true"></i>
+                <i class="fas fa-star" aria-hidden="true"></i>
+                <i class="fas fa-star-half-alt" aria-hidden="true"></i>
+                <span>(39)</span>
+              </div>
+              <div class="actions">
+                <button type="button" class="btn btn-primary btn-sm add-to-cart">Add to Cart</button>
+                <button type="button" class="btn btn-outline btn-sm">Buy Now</button>
+              </div>
+            </div>
+          </article>
+
+          <article class="product-card video-card" data-video="videos/ladyceeI5.mp4">
+            <div class="image video-container" aria-hidden="true">
+              <video class="video-product" src="videos/ladyceeI5.mp4" muted playsinline preload="metadata"></video>
+              <div class="video-play-overlay"><i class="fas fa-play"></i></div>
+              <i class="fas fa-gem"></i>
+              <span class="badge">Premium</span>
+            </div>
+            <div class="info">
+              <h4>Passion Twist Wig</h4>
+              <div class="price">₦65,000</div>
+              <div class="rating" aria-label="5 out of 5 stars, 61 reviews">
+                <i class="fas fa-star" aria-hidden="true"></i>
+                <i class="fas fa-star" aria-hidden="true"></i>
+                <i class="fas fa-star" aria-hidden="true"></i>
+                <i class="fas fa-star" aria-hidden="true"></i>
+                <i class="fas fa-star" aria-hidden="true"></i>
+                <span>(61)</span>
+              </div>
+              <div class="actions">
+                <button type="button" class="btn btn-primary btn-sm add-to-cart">Add to Cart</button>
+                <button type="button" class="btn btn-outline btn-sm">Buy Now</button>
+              </div>
+            </div>
+          </article>
+
+          <article class="product-card video-card" data-video="videos/ladyceeI6.mp4">
+            <div class="image video-container" aria-hidden="true">
+              <video class="video-product" src="videos/ladyceeI6.mp4" muted playsinline preload="metadata"></video>
+              <div class="video-play-overlay"><i class="fas fa-play"></i></div>
+              <i class="fas fa-gem"></i>
+              <span class="badge">Hot</span>
+            </div>
+            <div class="info">
+              <h4>Loose Deep Wave</h4>
+              <div class="price">₦92,000</div>
+              <div class="rating" aria-label="5 out of 5 stars, 47 reviews">
+                <i class="fas fa-star" aria-hidden="true"></i>
+                <i class="fas fa-star" aria-hidden="true"></i>
+                <i class="fas fa-star" aria-hidden="true"></i>
+                <i class="fas fa-star" aria-hidden="true"></i>
+                <i class="fas fa-star" aria-hidden="true"></i>
+                <span>(47)</span>
+              </div>
+              <div class="actions">
+                <button type="button" class="btn btn-primary btn-sm add-to-cart">Add to Cart</button>
+                <button type="button" class="btn btn-outline btn-sm">Buy Now</button>
+              </div>
+            </div>
+          </article>
+
+          <article class="product-card video-card" data-video="videos/ladyDarling1.mp4">
+            <div class="image video-container" aria-hidden="true">
+              <video class="video-product" src="videos/ladyDarling1.mp4" muted playsinline preload="metadata"></video>
+              <div class="video-play-overlay"><i class="fas fa-play"></i></div>
+              <i class="fas fa-crown"></i>
+              <span class="badge">Premium</span>
+            </div>
+            <div class="info">
+              <h4>Luxury Bob Wig</h4>
+              <div class="price">₦75,000</div>
+              <div class="rating" aria-label="5 out of 5 stars, 36 reviews">
+                <i class="fas fa-star" aria-hidden="true"></i>
+                <i class="fas fa-star" aria-hidden="true"></i>
+                <i class="fas fa-star" aria-hidden="true"></i>
+                <i class="fas fa-star" aria-hidden="true"></i>
+                <i class="fas fa-star" aria-hidden="true"></i>
+                <span>(36)</span>
+              </div>
+              <div class="actions">
+                <button type="button" class="btn btn-primary btn-sm add-to-cart">Add to Cart</button>
+                <button type="button" class="btn btn-outline btn-sm">Buy Now</button>
+              </div>
+            </div>
+          </article>
+
+          <article class="product-card video-card" data-video="videos/ladyDarling2.mp4">
+            <div class="image video-container" aria-hidden="true">
+              <video class="video-product" src="videos/ladyDarling2.mp4" muted playsinline preload="metadata"></video>
+              <div class="video-play-overlay"><i class="fas fa-play"></i></div>
+              <i class="fas fa-crown"></i>
+              <span class="badge">New</span>
+            </div>
+            <div class="info">
+              <h4>Brazilian Straight Wig</h4>
+              <div class="price">₦120,000</div>
+              <div class="rating" aria-label="5 out of 5 stars, 44 reviews">
+                <i class="fas fa-star" aria-hidden="true"></i>
+                <i class="fas fa-star" aria-hidden="true"></i>
+                <i class="fas fa-star" aria-hidden="true"></i>
+                <i class="fas fa-star" aria-hidden="true"></i>
+                <i class="fas fa-star" aria-hidden="true"></i>
+                <span>(44)</span>
+              </div>
+              <div class="actions">
+                <button type="button" class="btn btn-primary btn-sm add-to-cart">Add to Cart</button>
+                <button type="button" class="btn btn-outline btn-sm">Buy Now</button>
+              </div>
+            </div>
+          </article>
+
+          <article class="product-card video-card" data-video="videos/ladyDarling3.mp4">
+            <div class="image video-container" aria-hidden="true">
+              <video class="video-product" src="videos/ladyDarling3.mp4" muted playsinline preload="metadata"></video>
+              <div class="video-play-overlay"><i class="fas fa-play"></i></div>
+              <i class="fas fa-crown"></i>
+              <span class="badge">Top</span>
+            </div>
+            <div class="info">
+              <h4>Water Wave Wig</h4>
+              <div class="price">₦82,000</div>
+              <div class="rating" aria-label="4.5 out of 5 stars, 55 reviews">
+                <i class="fas fa-star" aria-hidden="true"></i>
+                <i class="fas fa-star" aria-hidden="true"></i>
+                <i class="fas fa-star" aria-hidden="true"></i>
+                <i class="fas fa-star" aria-hidden="true"></i>
+                <i class="fas fa-star-half-alt" aria-hidden="true"></i>
+                <span>(55)</span>
+              </div>
+              <div class="actions">
+                <button type="button" class="btn btn-primary btn-sm add-to-cart">Add to Cart</button>
+                <button type="button" class="btn btn-outline btn-sm">Buy Now</button>
+              </div>
+            </div>
+          </article>
+
+          <article class="product-card video-card" data-video="videos/ladyDarling4.mp4">
+            <div class="image video-container" aria-hidden="true">
+              <video class="video-product" src="videos/ladyDarling4.mp4" muted playsinline preload="metadata"></video>
+              <div class="video-play-overlay"><i class="fas fa-play"></i></div>
+              <i class="fas fa-crown"></i>
+              <span class="badge">Premium</span>
+            </div>
+            <div class="info">
+              <h4>Pixie Cut Wig</h4>
+              <div class="price">₦55,000</div>
+              <div class="rating" aria-label="5 out of 5 stars, 31 reviews">
+                <i class="fas fa-star" aria-hidden="true"></i>
+                <i class="fas fa-star" aria-hidden="true"></i>
+                <i class="fas fa-star" aria-hidden="true"></i>
+                <i class="fas fa-star" aria-hidden="true"></i>
+                <i class="fas fa-star" aria-hidden="true"></i>
+                <span>(31)</span>
+              </div>
+              <div class="actions">
+                <button type="button" class="btn btn-primary btn-sm add-to-cart">Add to Cart</button>
+                <button type="button" class="btn btn-outline btn-sm">Buy Now</button>
+              </div>
+            </div>
+          </article>
+
+          <article class="product-card video-card" data-video="videos/ladyDarling5.mp4">
+            <div class="image video-container" aria-hidden="true">
+              <video class="video-product" src="videos/ladyDarling5.mp4" muted playsinline preload="metadata"></video>
+              <div class="video-play-overlay"><i class="fas fa-play"></i></div>
+              <i class="fas fa-crown"></i>
+              <span class="badge">Hot</span>
+            </div>
+            <div class="info">
+              <h4>Curly Ponytail</h4>
+              <div class="price">₦45,000</div>
+              <div class="rating" aria-label="5 out of 5 stars, 68 reviews">
+                <i class="fas fa-star" aria-hidden="true"></i>
+                <i class="fas fa-star" aria-hidden="true"></i>
+                <i class="fas fa-star" aria-hidden="true"></i>
+                <i class="fas fa-star" aria-hidden="true"></i>
+                <i class="fas fa-star" aria-hidden="true"></i>
+                <span>(68)</span>
+              </div>
+              <div class="actions">
+                <button type="button" class="btn btn-primary btn-sm add-to-cart">Add to Cart</button>
+                <button type="button" class="btn btn-outline btn-sm">Buy Now</button>
+              </div>
+            </div>
+          </article>
+
+          <article class="product-card video-card" data-video="videos/ladyDarling6.mp4">
+            <div class="image video-container" aria-hidden="true">
+              <video class="video-product" src="videos/ladyDarling6.mp4" muted playsinline preload="metadata"></video>
+              <div class="video-play-overlay"><i class="fas fa-play"></i></div>
+              <i class="fas fa-crown"></i>
+              <span class="badge">New</span>
+            </div>
+            <div class="info">
+              <h4>Half Wig Half Bundles</h4>
+              <div class="price">₦70,000</div>
+              <div class="rating" aria-label="4.5 out of 5 stars, 42 reviews">
+                <i class="fas fa-star" aria-hidden="true"></i>
+                <i class="fas fa-star" aria-hidden="true"></i>
+                <i class="fas fa-star" aria-hidden="true"></i>
+                <i class="fas fa-star" aria-hidden="true"></i>
+                <i class="fas fa-star-half-alt" aria-hidden="true"></i>
+                <span>(42)</span>
+              </div>
+              <div class="actions">
+                <button type="button" class="btn btn-primary btn-sm add-to-cart">Add to Cart</button>
+                <button type="button" class="btn btn-outline btn-sm">Buy Now</button>
+              </div>
+            </div>
+          </article>
+
+          <article class="product-card video-card" data-video="videos/ladygagaII2.mp4">
+            <div class="image video-container" aria-hidden="true">
+              <video class="video-product" src="videos/ladygagaII2.mp4" muted playsinline preload="metadata"></video>
+              <div class="video-play-overlay"><i class="fas fa-play"></i></div>
+              <i class="fas fa-gem"></i>
+              <span class="badge">Premium</span>
+            </div>
+            <div class="info">
+              <h4>Long Layered Wig</h4>
+              <div class="price">₦130,000</div>
+              <div class="rating" aria-label="5 out of 5 stars, 57 reviews">
+                <i class="fas fa-star" aria-hidden="true"></i>
+                <i class="fas fa-star" aria-hidden="true"></i>
+                <i class="fas fa-star" aria-hidden="true"></i>
+                <i class="fas fa-star" aria-hidden="true"></i>
+                <i class="fas fa-star" aria-hidden="true"></i>
+                <span>(57)</span>
+              </div>
+              <div class="actions">
+                <button type="button" class="btn btn-primary btn-sm add-to-cart">Add to Cart</button>
+                <button type="button" class="btn btn-outline btn-sm">Buy Now</button>
+              </div>
+            </div>
+          </article>
+
+          <article class="product-card video-card" data-video="videos/lady%20Gagaii.mp4">
+            <div class="image video-container" aria-hidden="true">
+              <video class="video-product" src="videos/lady%20Gagaii.mp4" muted playsinline preload="metadata"></video>
+              <div class="video-play-overlay"><i class="fas fa-play"></i></div>
+              <i class="fas fa-gem"></i>
+              <span class="badge">New</span>
+            </div>
+            <div class="info">
+              <h4>Bouncy Curly Full Set</h4>
+              <div class="price">₦105,000</div>
+              <div class="rating" aria-label="5 out of 5 stars, 29 reviews">
+                <i class="fas fa-star" aria-hidden="true"></i>
+                <i class="fas fa-star" aria-hidden="true"></i>
+                <i class="fas fa-star" aria-hidden="true"></i>
+                <i class="fas fa-star" aria-hidden="true"></i>
+                <i class="fas fa-star" aria-hidden="true"></i>
+                <span>(29)</span>
+              </div>
+              <div class="actions">
+                <button type="button" class="btn btn-primary btn-sm add-to-cart">Add to Cart</button>
+                <button type="button" class="btn btn-outline btn-sm">Buy Now</button>
+              </div>
+            </div>
+          </article>
+
+          <article class="product-card video-card" data-video="videos/ladygagaII1%20.mp4">
+            <div class="image video-container" aria-hidden="true">
+              <video class="video-product" src="videos/ladygagaII1%20.mp4" muted playsinline preload="metadata"></video>
+              <div class="video-play-overlay"><i class="fas fa-play"></i></div>
+              <i class="fas fa-gem"></i>
+              <span class="badge">Hot</span>
+            </div>
+            <div class="info">
+              <h4>Closure Wig Set</h4>
+              <div class="price">₦98,000</div>
+              <div class="rating" aria-label="4.5 out of 5 stars, 48 reviews">
+                <i class="fas fa-star" aria-hidden="true"></i>
+                <i class="fas fa-star" aria-hidden="true"></i>
+                <i class="fas fa-star" aria-hidden="true"></i>
+                <i class="fas fa-star" aria-hidden="true"></i>
+                <i class="fas fa-star-half-alt" aria-hidden="true"></i>
+                <span>(48)</span>
+              </div>
+              <div class="actions">
+                <button type="button" class="btn btn-primary btn-sm add-to-cart">Add to Cart</button>
+                <button type="button" class="btn btn-outline btn-sm">Buy Now</button>
+              </div>
+            </div>
+          </article>
+
+          <article class="product-card video-card" data-video="videos/ladyI1.mp4">
+            <div class="image video-container" aria-hidden="true">
+              <video class="video-product" src="videos/ladyI1.mp4" muted playsinline preload="metadata"></video>
+              <div class="video-play-overlay"><i class="fas fa-play"></i></div>
+              <i class="fas fa-gem"></i>
+              <span class="badge">Premium</span>
+            </div>
+            <div class="info">
+              <h4>Frontal Wig 360</h4>
+              <div class="price">₦150,000</div>
+              <div class="rating" aria-label="5 out of 5 stars, 63 reviews">
+                <i class="fas fa-star" aria-hidden="true"></i>
+                <i class="fas fa-star" aria-hidden="true"></i>
+                <i class="fas fa-star" aria-hidden="true"></i>
+                <i class="fas fa-star" aria-hidden="true"></i>
+                <i class="fas fa-star" aria-hidden="true"></i>
+                <span>(63)</span>
+              </div>
+              <div class="actions">
+                <button type="button" class="btn btn-primary btn-sm add-to-cart">Add to Cart</button>
+                <button type="button" class="btn btn-outline btn-sm">Buy Now</button>
+              </div>
+            </div>
+          </article>
+
+          <article class="product-card video-card" data-video="videos/ladyI2.mp4">
+            <div class="image video-container" aria-hidden="true">
+              <video class="video-product" src="videos/ladyI2.mp4" muted playsinline preload="metadata"></video>
+              <div class="video-play-overlay"><i class="fas fa-play"></i></div>
+              <i class="fas fa-gem"></i>
+              <span class="badge">New</span>
+            </div>
+            <div class="info">
+              <h4>Straight Lace Front</h4>
+              <div class="price">₦108,000</div>
+              <div class="rating" aria-label="5 out of 5 stars, 37 reviews">
+                <i class="fas fa-star" aria-hidden="true"></i>
+                <i class="fas fa-star" aria-hidden="true"></i>
+                <i class="fas fa-star" aria-hidden="true"></i>
+                <i class="fas fa-star" aria-hidden="true"></i>
+                <i class="fas fa-star" aria-hidden="true"></i>
+                <span>(37)</span>
+              </div>
+              <div class="actions">
+                <button type="button" class="btn btn-primary btn-sm add-to-cart">Add to Cart</button>
+                <button type="button" class="btn btn-outline btn-sm">Buy Now</button>
+              </div>
+            </div>
+          </article>
+
+          <article class="product-card video-card" data-video="videos/ladyI3.mp4">
+            <div class="image video-container" aria-hidden="true">
+              <video class="video-product" src="videos/ladyI3.mp4" muted playsinline preload="metadata"></video>
+              <div class="video-play-overlay"><i class="fas fa-play"></i></div>
+              <i class="fas fa-gem"></i>
+              <span class="badge">Hot</span>
+            </div>
+            <div class="info">
+              <h4>Curly Full Lace</h4>
+              <div class="price">₦135,000</div>
+              <div class="rating" aria-label="4.5 out of 5 stars, 53 reviews">
+                <i class="fas fa-star" aria-hidden="true"></i>
+                <i class="fas fa-star" aria-hidden="true"></i>
+                <i class="fas fa-star" aria-hidden="true"></i>
+                <i class="fas fa-star" aria-hidden="true"></i>
+                <i class="fas fa-star-half-alt" aria-hidden="true"></i>
+                <span>(53)</span>
+              </div>
+              <div class="actions">
+                <button type="button" class="btn btn-primary btn-sm add-to-cart">Add to Cart</button>
+                <button type="button" class="btn btn-outline btn-sm">Buy Now</button>
+              </div>
+            </div>
+          </article>
+
+          <article class="product-card video-card" data-video="videos/ladyI4.mp4">
+            <div class="image video-container" aria-hidden="true">
+              <video class="video-product" src="videos/ladyI4.mp4" muted playsinline preload="metadata"></video>
+              <div class="video-play-overlay"><i class="fas fa-play"></i></div>
+              <i class="fas fa-gem"></i>
+              <span class="badge">Premium</span>
+            </div>
+            <div class="info">
+              <h4>Blonde Highlight Wig</h4>
+              <div class="price">₦125,000</div>
+              <div class="rating" aria-label="5 out of 5 stars, 25 reviews">
+                <i class="fas fa-star" aria-hidden="true"></i>
+                <i class="fas fa-star" aria-hidden="true"></i>
+                <i class="fas fa-star" aria-hidden="true"></i>
+                <i class="fas fa-star" aria-hidden="true"></i>
+                <i class="fas fa-star" aria-hidden="true"></i>
+                <span>(25)</span>
+              </div>
+              <div class="actions">
+                <button type="button" class="btn btn-primary btn-sm add-to-cart">Add to Cart</button>
+                <button type="button" class="btn btn-outline btn-sm">Buy Now</button>
+              </div>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+   
+    <!-- Best Sellers -->
+    <section id="best-sellers" class="section">
+      <div class="section-padding best-sellers-header">
+        <h2 class="section-title fade-in">Best Seller</h2>
+        <div class="scroll-arrows">
+          <button class="arrow-btn" id="scrollLeftBtn" aria-label="Scroll left">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+          </button>
+          <button class="arrow-btn" id="scrollRightBtn" aria-label="Scroll right">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <div class="best-sellers-scroll section-padding" id="bestSellersScroll">
+        <div class="best-sellers-row">
+          <article class="product-card" aria-label="Best Seller: Hair Growth Oil">
+            <div class="image" aria-hidden="true">
+              <img src="images/product-4.jpg" alt="Hair Growth Oil" />
+              <i class="fas fa-flask"></i>
+              <span class="badge">Best Seller</span>
+            </div>
+            <div class="info">
+              <h4>Hair Growth Oil</h4>
+              <div class="price">₦12,500</div>
+              <div class="rating" aria-label="5 out of 5 stars, 128 reviews">
+                <i class="fas fa-star" aria-hidden="true"></i>
+                <i class="fas fa-star" aria-hidden="true"></i>
+                <i class="fas fa-star" aria-hidden="true"></i>
+                <i class="fas fa-star" aria-hidden="true"></i>
+                <i class="fas fa-star" aria-hidden="true"></i>
+                <span>(128)</span>
+              </div>
+              <div class="actions">=
+                <button type="button" class="btn btn-primary btn-sm add-to-cart">Add to Cart</button>
+                <button type="button" class="btn btn-outline btn-sm">Buy Now</button>
+              </div>
+            </div>
+          </article>
+
+          <article class="product-card" aria-label="Best Seller: Moisturizing Cream">
+            <div class="image" aria-hidden="true">
+              <img src="images/product-5.jpg" alt="Moisturizing Cream" />
+              <i class="fas fa-hand-sparkles"></i>
+              <span class="badge">Hot</span>
+            </div>
+            <div class="info">
+              <h4>Moisturizing Cream</h4>
+              <div class="price">₦8,900</div>
+              <div class="rating" aria-label="4.5 out of 5 stars, 94 reviews">
+                <i class="fas fa-star" aria-hidden="true"></i>
+                <i class="fas fa-star" aria-hidden="true"></i>
+                <i class="fas fa-star" aria-hidden="true"></i>
+                <i class="fas fa-star" aria-hidden="true"></i>
+                <i class="fas fa-star-half-alt" aria-hidden="true"></i>
+                <span>(94)</span>
+              </div>
+              <div class="actions">
+                <button type="button" class="btn btn-primary btn-sm add-to-cart">Add to Cart</button>
+                <button type="button" class="btn btn-outline btn-sm">Buy Now</button>
+              </div>
+            </div>
+          </article>
+
+          <article class="product-card" aria-label="Best Seller: Edge Control Gel">
+            <div class="image" aria-hidden="true">
+              <img src="images/product-6.jpg" alt="Edge Control Gel" />
+              <i class="fas fa-scroll"></i>
+              <span class="badge">New</span>
+            </div>
+            <div class="info">
+              <h4>Edge Control Gel</h4>
+              <div class="price">₦6,200</div>
+              <div class="rating" aria-label="5 out of 5 stars, 73 reviews">
+                <i class="fas fa-star" aria-hidden="true"></i>
+                <i class="fas fa-star" aria-hidden="true"></i>
+                <i class="fas fa-star" aria-hidden="true"></i>
+                <i class="fas fa-star" aria-hidden="true"></i>
+                <i class="fas fa-star" aria-hidden="true"></i>
+                <span>(73)</span>
+              </div>
+              <div class="actions">
+                <button type="button" class="btn btn-primary btn-sm add-to-cart">Add to Cart</button>
+                <button type="button" class="btn btn-outline btn-sm">Buy Now</button>
+              </div>
+            </div>
+          </article>
+
+          <article class="product-card" aria-label="Best Seller: Luxury Wig Bundle">
+            <div class="image" aria-hidden="true">
+              <img src="images/product-7.jpg" alt="Luxury Wig Bundle" />
+              <i class="fas fa-crown"></i>
+              <span class="badge">Premium</span>
+            </div>
+            <div class="info">
+              <h4>Luxury Wig Bundle</h4>
+              <div class="price">₦45,000</div>
+              <div class="rating" aria-label="5 out of 5 stars, 56 reviews">
+                <i class="fas fa-star" aria-hidden="true"></i>
+                <i class="fas fa-star" aria-hidden="true"></i>
+                <i class="fas fa-star" aria-hidden="true"></i>
+                <i class="fas fa-star" aria-hidden="true"></i>
+                <i class="fas fa-star" aria-hidden="true"></i>
+                <span>(56)</span>
+              </div>
+              <div class="actions">
+                <button type="button" class="btn btn-primary btn-sm add-to-cart">Add to Cart</button>
+                <button type="button" class="btn btn-outline btn-sm">Buy Now</button>
+              </div>
+            </div>
+          </article>
+
+          <article class="product-card" aria-label="Best Seller: Hair Serum">
+            <div class="image" aria-hidden="true">
+              <img src="images/hair-serum.jpg" alt="Hair Serum" />
+              <i class="fas fa-vial"></i>
+              <span class="badge">Popular</span>
+            </div>
+            <div class="info">
+              <h4>Hair Growth Serum</h4>
+              <div class="price">₦21,000</div>
+              <div class="rating" aria-label="5 out of 5 stars, 49 reviews">
+                <i class="fas fa-star" aria-hidden="true"></i>
+                <i class="f as fa-star" aria-hidden="true"></i>
+                <i class="fas fa-star" aria-hidden="true"></i>
+                <i class="fas fa-star" aria-hidden="true"></i>
+                <i class="fas fa-star" aria-hidden="true"></i>
+                <span>(49)</span>
+              </div>
+              <div class="actions">
+                <button type="button" class="btn btn-primary btn-sm add-to-cart">Add to Cart</button>
+                <button type="button" class="btn btn-outline btn-sm">Buy Now</button>
+              </div>
+            </div>
+          </article>
+
+          <article class="product-card" aria-label="Best Seller: HD Lace Wig">
+            <div class="image" aria-hidden="true">
+              <img src="images/hd-lace-promo.jpg" alt="HD Lace Wig" />
+              <i class="fas fa-crown"></i>
+              <span class="badge">Top Rated</span>
+            </div>
+            <div class="info">
+              <h4>HD Lace Wig</h4>
+              <div class="price">₦110,000</div>
+              <div class="rating" aria-label="5 out of 5 stars, 22 reviews">
+                <i class="fas fa-star" aria-hidden="true"></i>
+                <i class="fas fa-star" aria-hidden="true"></i>
+                <i class="fas fa-star" aria-hidden="true"></i>
+                <i class="fas fa-star" aria-hidden="true"></i>
+                <i class="fas fa-star" aria-hidden="true"></i>
+                <span>(22)</span>
+              </div>
+              <div class="actions">
+                <button type="button" class="btn btn-primary btn-sm add-to-cart">Add to Cart</button>
+                <button type="button" class="btn btn-outline btn-sm">Buy Now</button>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== WHY CHOOSE ===== -->
+  <section class="why-choose" aria-label="Why Choose Oma Essentials">
+    <div class="container">
+      <h2 class="section-title">Why Choose Oma Essentials</h2>
+      <p class="section-subtitle">We're committed to quality, trust, and your satisfaction</p>
+      <div class="why-grid">
+        <div class="why-item">
+          <div class="icon" aria-hidden="true"><i class="fas fa-gem"></i></div>
+          <h4>Premium Quality</h4>
+          <p>Only carefully selected products.</p>
+        </div>
+        <div class="why-item">
+          <div class="icon" aria-hidden="true"><i class="fas fa-truck-fast"></i></div>
+          <h4>Fast Shipping</h4>
+          <p>Nationwide delivery.</p>
+        </div>
+        <div class="why-item">
+          <div class="icon" aria-hidden="true"><i class="fas fa-users"></i></div>
+          <h4>Trusted by Customers</h4>
+          <p>Real reviews and repeat buyers.</p>
+        </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+     <!-- ===== SOCIAL PROOF ===== -->
+  <section class="social-proof" id="reviews" aria-label="Customer Reviews">
+    <div class="container">
+      <h2 class="section-title">What Our Customers Say</h2>
+      <p class="section-subtitle">Real reviews from real women who love Oma Essentials</p>
+      <div class="testimonials-grid">
+
+        <div class="testimonial-card">
+          <div class="stars" aria-label="5 stars">★★★★★</div>
+          <blockquote>"My order arrived quickly and the quality exceeded expectations. I'll definitely be ordering again!"</blockquote>
+          <div class="author">
+            <div class="avatar" aria-hidden="true">A</div>
+            <div>
+              <div class="name">Amara O.</div>
+              <div class="location">Lagos, Nigeria</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="testimonial-card">
+          <div class="stars" aria-label="5 stars">★★★★★</div>
+          <blockquote>"The hair growth oil is amazing! I've seen noticeable results in just 3 weeks. Highly recommend."</blockquote>
+          <div class="author">
+            <div class="avatar" aria-hidden="true">C</div>
+            <div>
+              <div class="name">Chioma E.</div>
+              <div class="location">Abuja, Nigeria</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="testimonial-card">
+          <div class="stars" aria-label="5 stars">★★★★★</div>
+          <blockquote>"I love the customer service! They helped me choose the perfect wig for my face shape. 10/10 experience."</blockquote>
+          <div class="author">
+            <div class="avatar" aria-hidden="true">F</div>
+            <div>
+              <div class="name">Funke A.</div>
+              <div class="location">Port Harcourt, Nigeria</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+<!-- ===== VIDEO SHOWCASE ===== -->
+  <section class="video-showcase" aria-label="Video Showcase">
+    <div class="container">
+      <h2 class="section-title">Watch &amp; See the Difference</h2>
+      <p class="section-subtitle">Real product demos, unboxings, and transformations</p>
+      <div class="video-grid">
+
+        <div class="video-item" role="button" tabindex="0" aria-label="Watch Product Demo video">
+          <div class="play-icon" aria-hidden="true"><i class="fas fa-play"></i></div>
+          <div class="label">Product Demo</div>
+          <span class="tag">New</span>
+        </div>
+
+        <div class="video-item" role="button" tabindex="0" aria-label="Watch Before and After video">
+          <div class="play-icon" aria-hidden="true"><i class="fas fa-play"></i></div>
+          <div class="label">Before &amp; After</div>
+          <span class="tag">Popular</span>
+        </div>
+        <div class="video-item" role="button" tabindex="0" aria-label="Watch Customer Unboxing video">
+          <div class="play-icon" aria-hidden="true"><i class="fas fa-play"></i></div>
+          <div class="label">Customer Unboxing</div>
+          <span class="tag">Real</span>
+        </div>
+        <div class="video-item" role="button" tabindex="0" aria-label="Watch Behind the Scenes video">
+          <div class="play-icon" aria-hidden="true"><i class="fas fa-play"></i></div>
+          <div class="label">Behind the Scenes</div>
+          <span class="tag">Exclusive</span>
+          <video src="videos/lady Gagaii.mp4">lady gaga 1</video>
+        </div>
+      </div>
+    </div>
+  </section>
+
+    
+
+    <!-- ===== ABOUT ===== -->
+  <section class="about-section" id="about" aria-label="About Oma Essentials">
+    <div class="container">
+      <div class="about-grid">
+        <div class="about-image" aria-hidden="true">
+          <img class="about-founder-image" src="images/oma.png" alt="Oma" />
+          
+        </div>
+        <div class="about-text">
+          <h2>About <span>Oma Hairline</span></h2>
+          <p>I started Oma Essentials because I struggled to find high-quality hair and beauty products that actually delivered on their promises. Too many brands overpromised and underdelivered.</p>
+          <p>Our mission is simple: provide carefully selected, premium essentials that help women look and feel their best. Every product is vetted for quality, effectiveness, and safety.</p>
+          <p>We're not just a store — we're a community of women who value quality, trust, and self-care.</p>
+          <span class="founder-tag">Founded with love by Oma</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+    <!-- ===== FAQ ===== -->
+  <section class="faq-section" id="faq" aria-label="Frequently Asked Questions">
+    <div class="container">
+      <h2 class="section-title">Frequently Asked Questions</h2>
+      <p class="section-subtitle">Everything you need to know before placing your order</p>
+      <div class="faq-list">
+
+        <div class="faq-item active">
+          <!-- FIX: added type="button" to all FAQ buttons to prevent page reload -->
+          <button type="button" class="faq-question" aria-expanded="true">
+            How long is delivery?
+            <i class="fas fa-chevron-down" aria-hidden="true"></i>
+          </button>
+          <div class="faq-answer">
+            <p>Delivery takes 2–5 business days depending on your location. We ship nationwide across Nigeria.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button type="button" class="faq-question" aria-expanded="false">
+            Do you ship nationwide?
+            <i class="fas fa-chevron-down" aria-hidden="true"></i>
+          </button>
+          <div class="faq-answer">
+            <p>Yes! We deliver to all 36 states in Nigeria, including Abuja and Lagos. Shipping is fast and reliable.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button type="button" class="faq-question" aria-expanded="false">
+            What payment methods are accepted?
+            <i class="fas fa-chevron-down" aria-hidden="true"></i>
+          </button>
+          <div class="faq-answer">
+            <p>We accept all major debit/credit cards, bank transfers, and secure mobile payments via Paystack.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button type="button" class="faq-question" aria-expanded="false">
+            Can I return products?
+            <i class="fas fa-chevron-down" aria-hidden="true"></i>
+          </button>
+          <div class="faq-answer">
+            <p>Yes, we have a 7-day return policy for unused products in their original packaging. Contact our support team for assistance.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button type="button" class="faq-question" aria-expanded="false">
+            How do I track my order?
+            <i class="fas fa-chevron-down" aria-hidden="true"></i>
+          </button>
+          <div class="faq-answer">
+            <p>Once your order ships, we'll send you a tracking number via email and WhatsApp so you can monitor your delivery in real-time.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <section class="contact-form-section" id="contact" aria-label="Contact Oma Hairline">
+    <div class="container contact-form-wrapper">
+      <div class="contact-form-copy">
+        <p class="section-label">Need help choosing a style?</p>
+        <h2>Book a consultation</h2>
+        <p>Tell us what you are looking for and our team will reach out with the best recommendations for your hair goals.</p>
+        <ul class="contact-highlights">
+          <li>Personalized wig recommendations</li>
+          <li>Fast WhatsApp replies</li>
+          <li>Nationwide delivery</li>
+        </ul>
+      </div>
+
+      <form class="contact-form" id="contactForm">
+        <div class="form-grid">
+          <label>
+            <span>Name</span>
+            <input type="text" name="name" placeholder="Your full name" required />
+          </label>
+          <label>
+            <span>Email</span>
+            <input type="email" name="email" placeholder="you@example.com" required />
+          </label>
+        </div>
+
+        <label>
+          <span>Phone</span>
+          <input type="tel" name="phone" placeholder="080..." />
+        </label>
+
+        <label>
+          <span>What are you looking for?</span>
+          <select name="service">
+            <option>Choose an option</option>
+            <option>Wig consultation</option>
+            <option>Hair care product advice</option>
+            <option>Custom order</option>
+            <option>Other</option>
+          </select>
+        </label>
+
+        <label>
+          <span>Message</span>
+          <textarea name="message" rows="5" placeholder="Tell us a bit about your preferred style and budget..."></textarea>
+        </label>
+
+        <button type="submit" class="btn btn-primary">Send Inquiry</button>
+      </form>
+    </div>
+  </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer id="footer" class="footer">
+    <div class="section-padding footer-links">
+      <div class="footer-brand">
+        <div class="footer-logo">
+          <span class="logo-sub">OMA</span>
+          <span class="logo-main">Hairline</span>
+        </div>
+        <p id="footerDesc">Premium quality wigs crafted with care. Elevating your look with ethically sourced, bespoke hair pieces.</p>
+        <div class="social-row">
+          <a id="footerInstagram" href="https://www.instagram.com/omahairline01?igsh=MWhkNjhpaW13dW4yYQ%3D%3D&utm_source=qr" target="_blank" rel="noopener noreferrer" aria-label="Instagram" class="social-btn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+          </a>
+          <a id="footerTiktok" href="https://www.tiktok.com/@omaessentials01?_r=1&_t=ZS-97hDw6tps8q" target="_blank" rel="noopener noreferrer" aria-label="TikTok" class="social-btn">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z"/></svg>
+          </a>
+          <a id="footerWhatsapp" href="https://wa.me/2349135028166?text=Hi%20Oma!%20I%20want%20to%20shop%20your%20hair%20products%20%F0%9F%9B%8D%EF%B8%8F" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp" class="social-btn">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <div class="footer-col footer-col--links">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><button class="footer-link" data-target="#new-arrivals">New Ins</button></li>
+          <li><button class="footer-link" data-target="#best-sellers">Best Sellers</button></li>
+          <li><button class="footer-link" data-target="#about">About</button></li>
+          <li><button class="footer-link" data-target="#footer">Contact</button></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Policies</h4>
+        <ul>
+          <li><a href="#">Privacy Policy</a></li>
+          <li><a href="#">Contact</a></li>
+          <li><a href="#">Terms of Service</a></li>
+          <li><a href="#">FAQ</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="section-padding footer-copyright">
+      <p id="footerCopyright">&copy; 2026 Oma Hairline. All rights reserved.</p>
+      <p>Website designed & developed by <a href="#" target="_blank" style="color: #D4AF37; text-decoration: none;">Aniel</a></p>
+    </div>
+  </footer>
+
+<script src="script.js"></script>
+</body>
+</html>
