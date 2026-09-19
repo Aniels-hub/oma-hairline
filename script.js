@@ -1,766 +1,990 @@
-'use strict';
+document.addEventListener("DOMContentLoaded", () => {
 
-(function () {
-  const OWNER_WHATSAPP = '2349135028166';
-  const OWNER_EMAIL = 'Faceofoma@gmail.com';
+    const featuredContainer = document.querySelector(".featured-products");
+    const bestSellerContainer = document.querySelector(".best-sellers-grid");
 
-  // -------------------- Utilities --------------------
-  function sanitise(str) {
-    const div = document.createElement('div');
-    div.textContent = String(str ?? '');
-    return div.textContent;
-  }
-
-  function $(sel) {
-    return document.querySelector(sel);
-  }
-
-  function $all(sel) {
-    return Array.from(document.querySelectorAll(sel));
-  }
-
-  // -------------------- Toast --------------------
-  let toastEl = null;
-  let toastTimer = null;
-
-  function showToast(message, duration = 3500) {
-    if (!toastEl) {
-      toastEl = document.createElement('div');
-      toastEl.id = 'toast';
-      toastEl.setAttribute('role', 'status');
-      toastEl.setAttribute('aria-live', 'polite');
-
-      Object.assign(toastEl.style, {
-        position: 'fixed',
-        bottom: '1.5rem',
-        left: '50%',
-        transform: 'translateX(-50%) translateY(10px)',
-        background: '#1A1810',
-        color: '#fff',
-        fontSize: '0.85rem',
-        fontFamily: "'Poppins', sans-serif",
-        fontWeight: '600',
-        padding: '0.85rem 1.75rem',
-        borderRadius: '100px',
-        boxShadow: '0 10px 30px rgba(0,0,0,0.2)',
-        zIndex: '99999',
-        opacity: '0',
-        transition: 'opacity 0.25s ease, transform 0.25s ease',
-        pointerEvents: 'none',
-        whiteSpace: 'nowrap',
-        maxWidth: 'calc(100vw - 2rem)',
-        textAlign: 'center',
-      });
-
-      document.body.appendChild(toastEl);
+    if (featuredContainer) {
+        renderFeaturedProducts(featuredContainer);
     }
 
-    toastEl.textContent = String(message ?? '');
-    toastEl.style.opacity = '1';
-    toastEl.style.transform = 'translateX(-50%) translateY(0)';
+    if (bestSellerContainer) {
+        renderBestSellers(bestSellerContainer);
+    }
 
-    clearTimeout(toastTimer);
-    toastTimer = setTimeout(() => {
-      toastEl.style.opacity = '0';
-      toastEl.style.transform = 'translateX(-50%) translateY(10px)';
-    }, duration);
-  }
+});
 
-  //-------------------- Hairline helpers --------------------
-  function initCopyrightYear() {
-    const yearEl = $('#currentYear');
-    if (yearEl) yearEl.textContent = String(new Date().getFullYear());
-  }
 
-  function initMobileMenu() {
-    const hamburger = $('#hamburger');
-    const mobileNav = $('#mobileNav');
-    if (!hamburger || !mobileNav) return;
+/* ================================
+   PRODUCT CARD
+================================ */
 
-    hamburger.addEventListener('click', function () {
-      const isOpen = mobileNav.classList.toggle('open');
-      this.classList.toggle('active', isOpen);
-      this.setAttribute('aria-expanded', String(isOpen));
-      this.setAttribute('aria-label', isOpen ? 'Close menu' : 'Open menu');
-    });
+function createProductCard(product) {
 
-    $all('#mobileNav a').forEach((a) => {
-      a.addEventListener('click', () => {
-        mobileNav.classList.remove('open');
-        hamburger.classList.remove('active');
-        hamburger.setAttribute('aria-expanded', 'false');
-        hamburger.setAttribute('aria-label', 'Open menu');
-      });
-    });
-  }
+    return `
+        <article class="product-card">
 
-  function initNavbarScrollShadow() {
-    const navbar = $('#navbar');
-    if (!navbar) return;
+            <a
+                href="product.html?id=${product.id}"
+                class="product-image-link"
+            >
 
-    window.addEventListener(
-      'scroll',
-      () => {
-        navbar.classList.toggle('scrolled', window.scrollY > 20);
-      },
-      { passive: true }
-    );
-  }
+                <div class="product-image">
 
-  // ── NAVBAR SCROLL SHADOW ────────────────────────────────
-  const navbar = document.getElementById('navbar');
-  if (navbar) {
-    window.addEventListener('scroll', () => {
-      navbar.classList.toggle('scrolled', window.scrollY > 20);
-    }, { passive: true });
-  }
+                    <img
+                        src="${product.image}"
+                        alt="${product.name}"
+                        loading="lazy"
+                    >
 
-  function initRevealAnimations() {
-    const elements = $all('.fade-in, .fade-in-left, .fade-in-right');
-    if (elements.length === 0) return;
+                </div>
 
-    if ('IntersectionObserver' in window) {
-      const observer = new IntersectionObserver((entries, obs) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('visible');
-            obs.unobserve(entry.target);
-          }
-        });
-      }, { threshold: 0.15 });
+            </a>
 
-      elements.forEach((el) => observer.observe(el));
+
+            <div class="product-info">
+
+                <h3>
+                    <a href="product.html?id=${product.id}">
+                        ${product.name}
+                    </a>
+                </h3>
+
+                <p class="product-price">
+                    ₦${product.price.toLocaleString("en-NG")}
+                </p>
+
+                <a
+                    href="product.html?id=${product.id}"
+                    class="product-link"
+                >
+                    View Product →
+                </a>
+
+            </div>
+
+        </article>
+    `;
+}
+
+
+/* ================================
+   FEATURED PRODUCTS
+================================ */
+
+function renderFeaturedProducts(container) {
+
+    const featuredProducts = products.slice(0, 8);
+
+    container.innerHTML = featuredProducts
+        .map(createProductCard)
+        .join("");
+}
+
+
+/* ================================
+   BEST SELLERS
+================================ */
+
+function renderBestSellers(container) {
+
+    const bestSellers = products.slice(8, 11);
+
+    container.innerHTML = bestSellers
+        .map(createProductCard)
+        .join("");
+}
+
+/* =========================================
+   PRICE FORMATTER
+========================================= */
+
+function formatPrice(price) {
+    return new Intl.NumberFormat("en-NG", {
+        style: "currency",
+        currency: "NGN",
+        maximumFractionDigits: 0
+    }).format(price);
+}
+
+
+/* =========================================
+   PRODUCT DETAILS PAGE
+========================================= */
+
+const productName = document.getElementById("product-name");
+const productImage = document.getElementById("product-image");
+const productCategory = document.getElementById("product-category");
+const productPrice = document.getElementById("product-price");
+const productDescription = document.getElementById("product-description");
+const addToCartButton = document.getElementById("add-to-cart");
+const whatsappOrder = document.getElementById("whatsapp-order");
+
+
+if (productName) {
+
+    // Get product ID from URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const productId = urlParams.get("id");
+
+    // Find the product in data.js
+    const product = products.find(item => item.id === productId);
+
+
+    if (!product) {
+
+        productName.textContent = "Product not found";
+
+        productDescription.textContent =
+            "Sorry, this product could not be found.";
+
+        productImage.style.display = "none";
+
+        addToCartButton.style.display = "none";
+
+        whatsappOrder.style.display = "none";
+
     } else {
-      elements.forEach((el) => el.classList.add('visible'));
-    }
-  }
 
-  function initHeroSlideshow() {
-    const heroMedia = $('#heroMedia');
-    if (!heroMedia) return;
+        // Product information
+        productName.textContent = product.name;
 
-    const slides = $all('.hero-slide');
-    if (slides.length < 2) return;
+        productCategory.textContent = product.category;
 
-    let activeIndex = 0;
+        productPrice.textContent = formatPrice(product.price);
 
-    setInterval(() => {
-      slides[activeIndex].classList.remove('active');
-      activeIndex = (activeIndex + 1) % slides.length;
-      slides[activeIndex].classList.add('active');
-    }, 5000);
-  }
+        productImage.src = product.image;
 
-  function initFAQAccordion() {
-    const faqItems = $all('.faq-item');
-    if (faqItems.length === 0) return;
+        productImage.alt = product.name;
 
-    faqItems.forEach((item) => {
-      const question = item.querySelector('.faq-question');
-      if (!question) return;
 
-      question.addEventListener('click', () => {
-        const isActive = item.classList.contains('active');
+        // Product description
+        productDescription.textContent =
+            product.description ||
+            "Premium quality hair carefully selected by Oma Hairline.";
 
-        faqItems.forEach((i) => {
-          i.classList.remove('active');
-          const q = i.querySelector('.faq-question');
-          if (q) q.setAttribute('aria-expanded', 'false');
-        });
 
-        if (!isActive) {
-          item.classList.add('active');
-          question.setAttribute('aria-expanded', 'true');
-        }
-      });
-    });
-  }
+        // WhatsApp order
+        const message = `Hello Oma Hairline, I am interested in ${product.name} priced at ${formatPrice(product.price)}.`;
+        const whatsappNumber = "2349135028166";
 
-  function initSectionLinkTriggers() {
-    const triggers = $all('[data-target]');
-    if (triggers.length === 0) return;
+        whatsappOrder.href =
+            `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
 
-    triggers.forEach((trigger) => {
-      trigger.addEventListener('click', (event) => {
-        const targetSelector = trigger.getAttribute('data-target');
-        if (!targetSelector) return;
 
-        const target = document.querySelector(targetSelector);
-        if (!target) return;
+        // Add to cart
+        addToCartButton.addEventListener("click", () => {
 
-        event.preventDefault();
-        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      });
-    });
-  }
+    let cart = JSON.parse(localStorage.getItem("omaCart")) || [];
 
-  function initExitIntent() {
-    const exitOverlay = $('#exitOverlay');
-    if (!exitOverlay) return;
-
-    const closeExit = $('#closeExit');
-    const exitNoThanks = $('#exitNoThanks');
-    const exitClaimBtn = $('#exitClaimBtn');
-
-    let exitShown = false;
-
-    const closeExitModal = () => {
-      exitOverlay.classList.remove('open');
-      const focusTarget = document.querySelector('.hero .btn-primary');
-      if (focusTarget && typeof focusTarget.focus === 'function') focusTarget.focus();
-    };
-
-    document.addEventListener('mouseleave', (e) => {
-      if (e.clientY <= 0 && !exitShown) {
-        exitShown = true;
-        exitOverlay.classList.add('open');
-      }
-    });
-
-    if (closeExit) closeExit.addEventListener('click', closeExitModal);
-    if (exitNoThanks) exitNoThanks.addEventListener('click', closeExitModal);
-
-    exitOverlay.addEventListener('click', (e) => {
-      if (e.target === exitOverlay) closeExitModal();
-    });
-
-    if (exitClaimBtn) {
-      exitClaimBtn.addEventListener('click', () => {
-        closeExitModal();
-        showToast('🎉 10% off applied! Use code OMA10 at checkout.');
-      });
-    }
-
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') closeExitModal();
-    });
-  }
-
-  function initCaptureForm() {
-    const captureForm = $('#captureForm');
-    if (!captureForm) return;
-
-    captureForm.addEventListener('submit', (e) => {
-      e.preventDefault();
-
-      const nameInput = captureForm.querySelector('input[type="text"]');
-      const emailInput = captureForm.querySelector('input[type="email"]');
-
-      const name = sanitise(nameInput?.value?.trim() || '');
-      const email = sanitise(emailInput?.value?.trim() || '');
-
-      if (!name) {
-        showToast('Please enter your name.');
-        nameInput?.focus?.();
-        return;
-      }
-
-      if (!email || !email.includes('@') || !email.includes('.')) {
-        showToast('Please enter a valid email address.');
-        emailInput?.focus?.();
-        return;
-      }
-
-      showToast(`🎉 Welcome ${name}! Check your email for exclusive offers.`);
-      captureForm.reset();
-    });
-  }
-
-  function initContactForm() {
-    const form = $('#contactForm');
-    if (!form) return;
-
-    form.addEventListener('submit', (e) => {
-      e.preventDefault();
-
-      const nameInput = form.querySelector('input[name="name"]');
-      const emailInput = form.querySelector('input[name="email"]');
-      const phoneInput = form.querySelector('input[name="phone"]');
-      const serviceInput = form.querySelector('select[name="service"]');
-      const messageInput = form.querySelector('textarea[name="message"]');
-
-      const name = sanitise(nameInput?.value?.trim() || '');
-      const email = sanitise(emailInput?.value?.trim() || '');
-      const phone = sanitise(phoneInput?.value?.trim() || '');
-      const service = sanitise(serviceInput?.value?.trim() || '');
-      const message = sanitise(messageInput?.value?.trim() || '');
-
-      if (!name) {
-        showToast('Please enter your name.');
-        nameInput?.focus?.();
-        return;
-      }
-
-      if (!email || !email.includes('@') || !email.includes('.')) {
-        showToast('Please enter a valid email address.');
-        emailInput?.focus?.();
-        return;
-      }
-
-      const inquiryMessage = [
-        'New inquiry from Oma Hairline website',
-        '',
-        `Name: ${name}`,
-        `Email: ${email}`,
-        `Phone: ${phone || 'Not provided'}`,
-        `Service: ${service || 'Not specified'}`,
-        '',
-        'Message:',
-        message || 'No additional message provided.',
-      ].join('\n');
-
-      const waUrl = `https://wa.me/${OWNER_WHATSAPP}?text=${encodeURIComponent(inquiryMessage)}`;
-      const mailUrl = `mailto:${OWNER_EMAIL}?subject=${encodeURIComponent('New Inquiry - Oma Hairline')}&body=${encodeURIComponent(inquiryMessage)}`;
-
-      window.open(waUrl, '_blank', 'noopener,noreferrer');
-      showToast('Opening WhatsApp with your inquiry…');
-
-      setTimeout(() => {
-        window.location.href = mailUrl;
-      }, 350);
-
-      form.reset();
-    });
-  }
-
-  function initWhatsAppChatButton() {
-    const btn = $('#whatsappChatBtn');
-    if (!btn) return;
-
-    btn.addEventListener('click', () => {
-      const message = encodeURIComponent('Hi! I have a question about your products.');
-      window.open(`https://wa.me/${OWNER_WHATSAPP}?text=${message}`, '_blank', 'noopener,noreferrer');
-    });
-  }
-
-  function initAddToCartButtons() {
-    $all('.add-to-cart').forEach((btn) => {
-      btn.addEventListener('click', () => {
-        const productCard = btn.closest('.product-card');
-        const name = productCard?.querySelector('h4')?.textContent?.trim() || 'Selected item';
-        const priceText = productCard?.querySelector('.price')?.textContent?.replace(/[^\d]/g, '') || '0';
-        const price = Number(priceText) || 0;
-        const image = productCard?.querySelector('img')?.getAttribute('src') || '';
-
-        const originalText = btn.textContent;
-        btn.textContent = '✓ Added';
-        btn.style.background = '#16A34A';
-        btn.style.borderColor = '#16A34A';
-        setTimeout(() => {
-          btn.textContent = originalText;
-          btn.style.background = '';
-          btn.style.borderColor = '';
-        }, 1800);
-
-        const cart = window.__OMA_CART__;
-        if (cart) {
-          cart.add({ name, price, image });
-          const badge = $('.cart-count');
-          if (badge) {
-            badge.textContent = String(cart.totalItems());
-            badge.hidden = cart.totalItems() === 0;
-          }
-        } else {
-          const cartDrawer = $('#cartDrawer');
-          if (cartDrawer) {
-            cartDrawer.classList.add('open');
-            document.getElementById('cartOverlay')?.classList.add('open');
-          }
-          showToast('Cart is ready. Please refresh and try again.');
-        }
-
-        showToast('Item added to cart 🛍️');
-      });
-    });
-  }
-
-  function initScrollToTop() {
-    const scrollTopBtn = $('#scrollTop');
-    if (!scrollTopBtn) return;
-
-    window.addEventListener(
-      'scroll',
-      () => {
-        scrollTopBtn.classList.toggle('visible', window.scrollY > 500);
-      },
-      { passive: true }
+    const existingProduct = cart.find(
+        item => item.id === product.id
     );
 
-    scrollTopBtn.addEventListener('click', () => {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
-  }
+    if (existingProduct) {
 
-  function initVideoItems() {
-    $all('.video-item').forEach((item) => {
-      item.addEventListener('click', () => showToast('🎬 Video preview coming soon.'));
-      item.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter' || e.key === ' ') {
-          e.preventDefault();
-          showToast('🎬 Video preview coming soon.');
-        }
-      });
-    });
-  }
+        existingProduct.quantity += 1;
 
-  // ── VIDEO PRODUCT CARDS (hover play/pause) ────────────────────
-  function initVideoCards() {
-    const videoCards = $all('.video-card');
-    if (!videoCards.length) return;
+    } else {
 
-    videoCards.forEach((card) => {
-      const container = card.querySelector('.video-container');
-      const video = card.querySelector('.video-product');
-      if (!container || !video) return;
-
-      let isPlaying = false;
-      let hoverTimer = null;
-
-      // Mouse enter — play video after short delay (prevents accidental plays)
-      card.addEventListener('mouseenter', () => {
-        clearTimeout(hoverTimer);
-        hoverTimer = setTimeout(() => {
-          video.muted = true;
-          video.currentTime = 0;
-          video.play().then(() => {
-            isPlaying = true;
-            container.classList.add('playing');
-          }).catch(() => {
-            // Autoplay blocked by browser — keep poster showing
-          });
-        }, 300);
-      });
-
-      // Mouse leave — pause and reset
-      card.addEventListener('mouseleave', () => {
-        clearTimeout(hoverTimer);
-        if (isPlaying) {
-          video.pause();
-          isPlaying = false;
-          container.classList.remove('playing');
-        }
-      });
-
-      // Touch device support — tap to toggle play/pause
-      card.addEventListener('click', (e) => {
-        // Don't interfere with button clicks
-        if (e.target.closest('.btn, .add-to-cart')) return;
-
-        if ('ontouchstart' in window || navigator.maxTouchPoints > 0) {
-          e.preventDefault();
-          if (isPlaying) {
-            video.pause();
-            isPlaying = false;
-            container.classList.remove('playing');
-          } else {
-            video.muted = true;
-            video.currentTime = 0;
-            video.play().then(() => {
-              isPlaying = true;
-              container.classList.add('playing');
-            }).catch(() => {});
-          }
-        }
-      });
-
-      // Clean up on video end — reset to poster
-      video.addEventListener('ended', () => {
-        isPlaying = false;
-        container.classList.remove('playing');
-      });
-    });
-  }
-
-  function initConcernButtons() {
-    const concernBtns = $all('.concern-btn');
-    if (concernBtns.length === 0) return;
-
-    concernBtns.forEach((btn) => {
-      btn.addEventListener('click', () => {
-        const bestsellers = $('.bestsellers');
-        if (!bestsellers) return;
-
-        bestsellers.scrollIntoView({ behavior: 'smooth' });
-
-        $all('.product-card').forEach((card, index) => {
-          setTimeout(() => {
-            card.style.transition = 'all 0.4s ease';
-            card.style.boxShadow = '0 0 0 3px var(--primary)';
-            setTimeout(() => {
-              card.style.boxShadow = '';
-            }, 1200);
-          }, index * 150);
+        cart.push({
+            id: product.id,
+            name: product.name,
+            price: product.price,
+            image: product.image,
+            quantity: 1
         });
-      });
-    });
-  }
 
-  function initRecentPurchaseNotification() {
-    const recentPurchase = $('#recentPurchase');
-    const closeRecent = $('#closeRecent');
-    if (!recentPurchase || !closeRecent) return;
+    }
+
+    localStorage.setItem(
+        "omaCart",
+        JSON.stringify(cart)
+    );
+
+    updateCartCount();
+
+    addToCartButton.textContent = "Added ✓";
 
     setTimeout(() => {
-      recentPurchase.classList.add('hidden');
-    }, 8000);
+        addToCartButton.textContent = "Add to Cart";
+    }, 1500);
 
-    closeRecent.addEventListener('click', () => {
-      recentPurchase.classList.add('hidden');
+});
+function updateCartCount() {
+
+    const cart = JSON.parse(
+        localStorage.getItem("omaCart")
+    ) || [];
+
+    const cartCountElements =
+        document.querySelectorAll(".cart-count");
+
+    const totalItems = cart.reduce(
+        (total, item) => total + item.quantity,
+        0
+    );
+
+    cartCountElements.forEach(element => {
+        element.textContent = totalItems;
     });
+}
 
-    const names = ['Adeola', 'Zainab', 'Ngozi', 'Temi', 'Bola', 'Kemi', 'Lola', 'Sade'];
-    const products = ['Moisturizing Cream', 'Edge Control Gel', 'Luxury Wig Bundle', 'Hair Growth Oil', 'Shampoo Set'];
+updateCartCount();
 
-    setInterval(() => {
-      const name = names[Math.floor(Math.random() * names.length)];
-      const product = products[Math.floor(Math.random() * products.length)];
-      const hours = Math.floor(Math.random() * 5) + 1;
-
-      const avatar = recentPurchase.querySelector('.avatar');
-      const strongs = recentPurchase.querySelectorAll('.text strong');
-      const timeEl = recentPurchase.querySelector('.text .time');
-
-      if (avatar) avatar.textContent = name.charAt(0);
-      if (strongs[0]) strongs[0].textContent = name;
-      if (strongs[1]) strongs[1].textContent = product;
-      if (timeEl) timeEl.textContent = `${hours} hour${hours > 1 ? 's' : ''} ago`;
-
-      recentPurchase.classList.remove('hidden');
-      setTimeout(() => {
-        recentPurchase.classList.add('hidden');
-      }, 6000);
-    }, 25000);
-  }
-
-  // -------------------- Index page cart drawer --------------------
-  function initIndexCartDrawer() {
-    const cartDrawer = $('#cartDrawer');
-    const cartOverlay = $('#cartOverlay');
-    const cartItemsEl = $('#cartItems');
-    const cartFooterEl = $('#cartFooter');
-    const cartCountEl = $('#cartCount');
-    const cartSubtotalEl = $('#cartSubtotal');
-    const cartToggle = $('#cartToggle');
-    const cartClose = $('#cartClose');
-    const checkoutBtn = $('#checkoutBtn');
-    const clearCartBtn = $('#clearCartBtn');
-
-    if (!cartDrawer || !cartOverlay || !cartItemsEl || !cartFooterEl || !cartCountEl || !cartSubtotalEl || !cartToggle || !cartClose || !checkoutBtn || !clearCartBtn) {
-      return;
     }
 
-    const Cart = {
-      items: [],
-      add(product) {
-        if (!product?.name) return;
-        const existing = this.items.find((i) => i.name === product.name);
-        if (existing) existing.quantity += 1;
-        else this.items.push({ ...product, quantity: 1 });
-        this.render();
-        openCart();
-      },
-      remove(name) {
-        this.items = this.items.filter((i) => i.name !== name);
-        this.render();
-      },
-      updateQuantity(name, quantity) {
-        if (quantity <= 0) return this.remove(name);
-        const item = this.items.find((i) => i.name === name);
-        if (item) item.quantity = quantity;
-        this.render();
-      },
-      totalItems() {
-        return this.items.reduce((sum, i) => sum + i.quantity, 0);
-      },
-      totalPrice() {
-        return this.items.reduce((sum, i) => sum + i.price * i.quantity, 0);
-      },
-      clear() {
-        this.items = [];
-        this.render();
-      },
-      render() {
-        const total = this.totalItems();
-        cartCountEl.textContent = String(total);
-        cartCountEl.hidden = total === 0;
+}
 
-        if (this.items.length === 0) {
-          cartItemsEl.innerHTML = `
-            <div class="cart-empty">
-              <p class="cart-empty-title">Your cart is empty</p>
-              <p class="cart-empty-sub">Add some beautiful wigs to get started</p>
-            </div>`;
-          cartFooterEl.hidden = true;
-          return;
+
+/* =========================================
+   CART PAGE
+========================================= */
+
+const cartItemsContainer = document.getElementById("cart-items");
+const cartSubtotal = document.getElementById("cart-subtotal");
+const cartTotal = document.getElementById("cart-total");
+
+
+if (cartItemsContainer) {
+
+    function renderCart() {
+
+        const cart =
+            JSON.parse(localStorage.getItem("omaCart")) || [];
+
+        cartItemsContainer.innerHTML = "";
+
+
+        // Empty cart
+        if (cart.length === 0) {
+
+            cartItemsContainer.innerHTML = `
+                <div class="empty-cart">
+                    <h2>Your cart is empty</h2>
+                    <p>
+                        You haven't added any products yet.
+                    </p>
+
+                    <a href="shop.html">
+                        Start Shopping
+                    </a>
+                </div>
+            `;
+
+            cartSubtotal.textContent = "₦0";
+            cartTotal.textContent = "₦0";
+
+            return;
         }
 
-        cartItemsEl.innerHTML = this.items
-          .map((item) => `
-            <div class="cart-item" data-product-name="${item.name}">
-              <img src="${item.image}" alt="${item.name}" />
-              <div class="cart-item-body">
-                <div class="cart-item-top">
-                  <h3 class="cart-item-name">${item.name}</h3>
-                  <button class="remove-btn" data-action="remove" data-name="${item.name}" aria-label="Remove item">
-                    <i class="fas fa-trash-can" aria-hidden="true"></i>
-                  </button>
+
+        let subtotal = 0;
+
+
+        cart.forEach(item => {
+
+            const itemTotal =
+                item.price * item.quantity;
+
+            subtotal += itemTotal;
+
+
+            const cartItem =
+                document.createElement("article");
+
+            cartItem.className = "cart-item";
+
+
+            cartItem.innerHTML = `
+
+                <div class="cart-item-image">
+
+                    <img
+                        src="${item.image}"
+                        alt="${item.name}"
+                    >
+
                 </div>
-                <p class="cart-item-price">₦${Number(item.price).toLocaleString()}</p>
-                <div class="cart-item-controls">
-                  <button class="qty-btn" data-action="decrease" data-name="${item.name}" aria-label="Decrease quantity">
-                    <i class="fas fa-minus" aria-hidden="true"></i>
-                  </button>
-                  <span class="qty-value">${item.quantity}</span>
-                  <button class="qty-btn" data-action="increase" data-name="${item.name}" aria-label="Increase quantity">
-                    <i class="fas fa-plus" aria-hidden="true"></i>
-                  </button>
+
+
+                <div class="cart-item-info">
+
+                    <h2>
+                        ${item.name}
+                    </h2>
+
+                    <p>
+                        ${formatPrice(item.price)}
+                    </p>
+
+
+                    <div class="quantity-controls">
+
+                        <button
+                            type="button"
+                            class="quantity-minus"
+                            data-id="${item.id}"
+                        >
+                            −
+                        </button>
+
+                        <span>
+                            ${item.quantity}
+                        </span>
+
+                        <button
+                            type="button"
+                            class="quantity-plus"
+                            data-id="${item.id}"
+                        >
+                            +
+                        </button>
+
+                    </div>
+
+
+                    <button
+                        type="button"
+                        class="remove-item"
+                        data-id="${item.id}"
+                    >
+                        Remove
+                    </button>
+
                 </div>
-              </div>
-            </div>`)
-          .join('');
 
-        cartFooterEl.hidden = false;
-        cartSubtotalEl.textContent = `₦${this.totalPrice().toLocaleString()}`;
-      },
-    };
 
-    function openCart() {
-      cartDrawer.classList.add('open');
-      cartOverlay.classList.add('open');
+                <div class="cart-item-total">
+
+                    ${formatPrice(itemTotal)}
+
+                </div>
+
+            `;
+
+
+            cartItemsContainer.appendChild(cartItem);
+
+        });
+
+
+        cartSubtotal.textContent =
+            formatPrice(subtotal);
+
+        cartTotal.textContent =
+            formatPrice(subtotal);
+
+
+        attachCartEvents();
+
     }
 
-    function closeCart() {
-      cartDrawer.classList.remove('open');
-      cartOverlay.classList.remove('open');
+
+    function attachCartEvents() {
+
+        document
+            .querySelectorAll(".quantity-plus")
+            .forEach(button => {
+
+                button.addEventListener("click", () => {
+
+                    changeQuantity(
+                        button.dataset.id,
+                        1
+                    );
+
+                });
+
+            });
+
+
+        document
+            .querySelectorAll(".quantity-minus")
+            .forEach(button => {
+
+                button.addEventListener("click", () => {
+
+                    changeQuantity(
+                        button.dataset.id,
+                        -1
+                    );
+
+                });
+
+            });
+
+
+        document
+            .querySelectorAll(".remove-item")
+            .forEach(button => {
+
+                button.addEventListener("click", () => {
+
+                    removeFromCart(
+                        button.dataset.id
+                    );
+
+                });
+
+            });
+
     }
 
-    cartToggle.addEventListener('click', openCart);
-    cartClose.addEventListener('click', closeCart);
-    cartOverlay.addEventListener('click', closeCart);
 
-    clearCartBtn.addEventListener('click', () => {
-      Cart.clear();
-      showToast('Cart cleared');
-    });
+    function changeQuantity(productId, change) {
 
-    cartItemsEl.addEventListener('click', (e) => {
-      const btn = e.target.closest('button[data-action]');
-      if (!btn) return;
-      const name = btn.dataset.name;
-      const action = btn.dataset.action;
-      const item = Cart.items.find((i) => i.name === name);
-      if (!item) return;
+        let cart =
+            JSON.parse(localStorage.getItem("omaCart")) || [];
 
-      if (action === 'increase') Cart.updateQuantity(name, item.quantity + 1);
-      if (action === 'decrease') Cart.updateQuantity(name, item.quantity - 1);
-      if (action === 'remove') Cart.remove(name);
-    });
 
-    checkoutBtn.addEventListener('click', () => {
-      if (Cart.items.length === 0) return;
-      const nameInput = $('#checkoutName');
-      const phoneInput = $('#checkoutPhone');
-      const name = (nameInput?.value || '').trim();
-      const phone = (phoneInput?.value || '').trim();
-      if (!name || !phone) {
-        showToast('Enter your name and phone to checkout.');
-        return;
-      }
+        const item =
+            cart.find(item => item.id === productId);
 
-      const message = [
-        'New order from Oma Hairline website',
-        '',
-        `Customer: ${name}`,
-        `Phone: ${phone}`,
-        '',
-        'Items:',
-        ...Cart.items.map((i) => `• ${i.name} x${i.quantity} — ₦${(i.price * i.quantity).toLocaleString()}`),
-        '',
-        `Total: ₦${Cart.totalPrice().toLocaleString()}`,
-      ].join('\n');
 
-      const waUrl = `https://wa.me/${OWNER_WHATSAPP}?text=${encodeURIComponent(message)}`;
-      const mailUrl = `mailto:${OWNER_EMAIL}?subject=${encodeURIComponent('New Order - Oma Hairline')}&body=${encodeURIComponent(message)}`;
+        if (!item) return;
 
-      window.open(waUrl, '_blank', 'noopener,noreferrer');
-      setTimeout(() => {
-        window.location.href = mailUrl;
-      }, 300);
 
-      Cart.clear();
-      if (nameInput) nameInput.value = '';
-      if (phoneInput) phoneInput.value = '';
-      closeCart();
-    });
+        item.quantity += change;
 
-    window.__OMA_CART__ = Cart;
-    Cart.render();
-  }
 
-  // ── EMAIL CAPTURE FORM ──────────────────────────────────
-  const captureForm = document.getElementById('captureForm');
-  if (captureForm) {
-    captureForm.addEventListener('submit', (e) => {
-      e.preventDefault();
+        if (item.quantity <= 0) {
 
-      const nameInput  = captureForm.querySelector('input[type="text"]');
-      const emailInput = captureForm.querySelector('input[type="email"]');
+            cart =
+                cart.filter(item => item.id !== productId);
 
-      const name  = sanitise(nameInput?.value?.trim()  || '');
-      const email = sanitise(emailInput?.value?.trim() || '');
+        }
 
-      if (!name) {
-        showToast('Please enter your name.');
-        nameInput?.focus();
-        return;
-      }
-      if (!email || !email.includes('@') || !email.includes('.')) {
-        showToast('Please enter a valid email address.');
-        emailInput?.focus();
-        return;
-      }
 
-      showToast(`🎉 Welcome ${name}! Check your email for exclusive offers.`);
-      captureForm.reset();
-    });
-  }
+        localStorage.setItem(
+            "omaCart",
+            JSON.stringify(cart)
+        );
 
-  // ── WHATSAPP CHAT BUTTON ────────────────────────────────
-  const whatsappChatBtn = document.getElementById('whatsappChatBtn');
-  if (whatsappChatBtn) {
-    whatsappChatBtn.addEventListener('click', () => {
-      const waNumber = '2349135028166';
-      const message  = encodeURIComponent('Hi! I have a question about your products.');
-      window.open(`https://wa.me/${waNumber}?text=${message}`, '_blank', 'noopener,noreferrer');
-    });
-  }
 
-  // -------------------- Boot --------------------
-  document.addEventListener('DOMContentLoaded', () => {
-    initCopyrightYear();
-    initMobileMenu();
-    initNavbarScrollShadow();
-    initRevealAnimations();
+        renderCart();
 
-    // hairline UI
-    initHeroSlideshow();
-    initFAQAccordion();
-    initSectionLinkTriggers();
-    initExitIntent();
-    initCaptureForm();
-    initContactForm();
-    initWhatsAppChatButton();
-    initIndexCartDrawer();
-    initAddToCartButtons();
-    initScrollToTop();
-    initVideoItems();
-    initVideoCards();
-    initConcernButtons();
-    initRecentPurchaseNotification();
+        updateCartCount();
 
-    if (window.innerWidth <= 768) {
-      document.body.classList.add('has-sticky-cart');
     }
-  });
-})();
 
+
+    function removeFromCart(productId) {
+
+        let cart =
+            JSON.parse(localStorage.getItem("omaCart")) || [];
+
+
+        cart =
+            cart.filter(item => item.id !== productId);
+
+
+        localStorage.setItem(
+            "omaCart",
+            JSON.stringify(cart)
+        );
+
+
+        renderCart();
+
+        updateCartCount();
+
+    }
+
+
+    renderCart();
+
+}
+/* =========================================
+   CART BUTTON
+========================================= */
+
+const cartButtons = document.querySelectorAll(".cart-button");
+
+cartButtons.forEach(button => {
+
+    button.addEventListener("click", () => {
+
+        window.location.href = "cart.html";
+
+    });
+
+});
+
+/* =========================================
+   SHOP PAGE
+========================================= */
+
+const productsGrid = document.getElementById("products-grid");
+const searchInput = document.getElementById("product-search");
+const filterButtons = document.querySelectorAll(".filter-btn");
+
+if (productsGrid) {
+
+    let currentCategory = "all";
+    let currentSearch = "";
+
+    /* -----------------------------------------
+       DISPLAY PRODUCTS
+    ----------------------------------------- */
+
+    function displayProducts(productsToDisplay) {
+
+        productsGrid.innerHTML = "";
+
+        if (productsToDisplay.length === 0) {
+
+            productsGrid.innerHTML = `
+                <div class="no-products">
+                    <h2>No products found</h2>
+                    <p>
+                        We couldn't find a product matching your search.
+                    </p>
+                </div>
+            `;
+
+            return;
+        }
+
+        productsToDisplay.forEach(product => {
+
+            const productCard = document.createElement("article");
+
+            productCard.className = "product-card";
+
+            productCard.innerHTML = `
+                <a href="product.html?id=${product.id}">
+                    <img
+                        src="${product.image}"
+                        alt="${product.name}"
+                        loading="lazy"
+                    >
+                </a>
+
+                <div class="product-info">
+
+                    <p class="product-category">
+                        ${product.category}
+                    </p>
+
+                    <h2>
+                        ${product.name}
+                    </h2>
+
+                    <p class="product-price">
+                        ${formatPrice(product.price)}
+                    </p>
+
+                    <button
+                        type="button"
+                        class="add-to-cart"
+                        data-product-id="${product.id}"
+                    >
+                        Add to Cart
+                    </button>
+
+                </div>
+            `;
+
+            productsGrid.appendChild(productCard);
+
+        });
+
+    }
+
+
+    /* -----------------------------------------
+       FILTER PRODUCTS
+    ----------------------------------------- */
+
+    function filterProducts() {
+
+        const filteredProducts = products.filter(product => {
+
+            const productName =
+                product.name.toLowerCase();
+
+            const productCategory =
+                product.category.toLowerCase();
+
+            const searchMatches =
+                productName.includes(currentSearch) ||
+                productCategory.includes(currentSearch);
+
+            let categoryMatches = true;
+
+            if (currentCategory !== "all") {
+
+                if (currentCategory === "straight") {
+
+                    categoryMatches =
+                        productCategory.includes("straight");
+
+                } else {
+
+                    categoryMatches =
+                        productCategory.includes(currentCategory);
+
+                }
+
+            }
+
+            return searchMatches && categoryMatches;
+
+        });
+
+        displayProducts(filteredProducts);
+
+    }
+
+
+    /* -----------------------------------------
+       SEARCH
+    ----------------------------------------- */
+
+   if (searchInput) {
+
+    searchInput.addEventListener("input", () => {
+
+        currentSearch =
+            searchInput.value.trim().toLowerCase();
+
+        filterProducts();
+
+    });
+
+}
+
+const searchButton = document.getElementById("search-button");
+
+if (searchButton) {
+
+    searchButton.addEventListener("click", () => {
+
+        currentSearch =
+            searchInput.value.trim().toLowerCase();
+
+        filterProducts();
+
+    });
+
+}
+
+    /* -----------------------------------------
+       CATEGORY FILTERS
+    ----------------------------------------- */
+
+    filterButtons.forEach(button => {
+
+        button.addEventListener("click", () => {
+
+            filterButtons.forEach(btn => {
+                btn.classList.remove("active");
+            });
+
+            button.classList.add("active");
+
+            currentCategory =
+                button.textContent.trim().toLowerCase();
+
+            if (currentCategory === "all") {
+                currentCategory = "all";
+            }
+
+            filterProducts();
+
+        });
+
+    });
+
+
+    /* -----------------------------------------
+       ADD TO CART
+    ----------------------------------------- */
+
+    productsGrid.addEventListener("click", event => {
+
+        const button =
+            event.target.closest(".add-to-cart");
+
+        if (!button) return;
+
+        const productId =
+            button.dataset.productId;
+
+        const product =
+            products.find(item => item.id === productId);
+
+        if (!product) return;
+
+        let cart =
+            JSON.parse(localStorage.getItem("omaCart")) || [];
+
+        const existingProduct =
+            cart.find(item => item.id === product.id);
+
+        if (existingProduct) {
+
+            existingProduct.quantity += 1;
+
+        } else {
+
+            cart.push({
+                id: product.id,
+                name: product.name,
+                price: product.price,
+                image: product.image,
+                quantity: 1
+            });
+
+        }
+
+        localStorage.setItem(
+            "omaCart",
+            JSON.stringify(cart)
+        );
+
+
+        /* Update cart number */
+
+        const cartCountElements =
+            document.querySelectorAll(".cart-count");
+
+        const totalItems =
+            cart.reduce(
+                (total, item) =>
+                    total + item.quantity,
+                0
+            );
+
+        cartCountElements.forEach(element => {
+            element.textContent = totalItems;
+        });
+
+
+        /* Button feedback */
+
+        button.textContent = "Added ✓";
+
+        setTimeout(() => {
+            button.textContent = "Add to Cart";
+        }, 1500);
+
+    });
+
+
+    /* -----------------------------------------
+       INITIAL DISPLAY
+    ----------------------------------------- */
+
+    displayProducts(products);
+
+}
+/* =========================================
+   MOBILE HAMBURGER MENU
+========================================= */
+
+const menuToggle = document.querySelector(".menu-toggle");
+const navMenu = document.querySelector(".nav-links");
+
+if (menuToggle && navMenu) {
+
+    menuToggle.addEventListener("click", () => {
+
+        navMenu.classList.toggle("active");
+
+        const isOpen = navMenu.classList.contains("active");
+
+        menuToggle.setAttribute(
+            "aria-expanded",
+            isOpen
+        );
+
+        menuToggle.setAttribute(
+            "aria-label",
+            isOpen
+                ? "Close navigation menu"
+                : "Open navigation menu"
+        );
+
+    });
+
+
+    // Close menu when a navigation link is clicked
+
+    navMenu.querySelectorAll("a").forEach(link => {
+
+        link.addEventListener("click", () => {
+
+            navMenu.classList.remove("active");
+
+            menuToggle.setAttribute(
+                "aria-expanded",
+                "false"
+            );
+
+            menuToggle.setAttribute(
+                "aria-label",
+                "Open navigation menu"
+            );
+
+        });
+
+    });
+
+}
+
+/* =========================================
+   CHECKOUT PAGE
+========================================= */
+
+const checkoutItems = document.querySelector("#checkout-items");
+const checkoutTotal = document.querySelector("#checkout-total");
+
+if (checkoutItems && checkoutTotal) {
+
+    const cart = JSON.parse(localStorage.getItem("omaCart")) || [];
+
+    if (cart.length === 0) {
+
+    checkoutItems.innerHTML = `
+        <div class="empty-checkout">
+
+            <h3>Your cart is empty</h3>
+
+            <p>
+                Add some beautiful hair products to your cart
+                before proceeding to checkout.
+            </p>
+
+            <a href="shop.html" class="checkout-continue-button">
+                Continue Shopping
+            </a>
+
+        </div>
+    `;
+
+    checkoutTotal.textContent = "₦0";
+
+} else {
+
+        let total = 0;
+
+        checkoutItems.innerHTML = cart.map(item => {
+
+            const itemTotal = item.price * item.quantity;
+
+            total += itemTotal;
+
+            return `
+                <div class="checkout-item">
+
+                    <div>
+                        <strong>${item.name}</strong>
+                        <span>Qty: ${item.quantity}</span>
+                    </div>
+
+                    <strong>
+                        ${formatPrice(itemTotal)}
+                    </strong>
+
+                </div>
+            `;
+
+        }).join("");
+
+        checkoutTotal.textContent = formatPrice(total);
+    }
+}
+/* =========================================
+   CART → CHECKOUT
+========================================= */
+
+const checkoutButton = document.querySelector("#checkout-button");
+
+if (checkoutButton) {
+
+    checkoutButton.addEventListener("click", () => {
+
+        const cart = JSON.parse(localStorage.getItem("omaCart")) || [];
+
+        if (cart.length === 0) {
+            alert("Your cart is empty. Please add a product before checkout.");
+            return;
+        }
+
+        window.location.href = "checkout.html";
+
+    });
+
+}
+/* =========================================
+   WHATSAPP CHECKOUT
+========================================= */
+
+const checkoutForm = document.querySelector("#checkout-form");
+
+if (checkoutForm) {
+
+    checkoutForm.addEventListener("submit", (event) => {
+
+        event.preventDefault();
+
+        const cart = JSON.parse(localStorage.getItem("omaCart")) || [];
+
+        if (cart.length === 0) {
+            alert("Your cart is empty. Please add a product before placing an order.");
+            return;
+        }
+
+        const customerName = document.querySelector("#customer-name").value.trim();
+        const customerPhone = document.querySelector("#customer-phone").value.trim();
+        const customerAddress = document.querySelector("#customer-address").value.trim();
+        const customerNote = document.querySelector("#customer-note").value.trim();
+
+        let total = 0;
+
+        const orderItems = cart.map(item => {
+
+            const itemTotal = item.price * item.quantity;
+
+            total += itemTotal;
+
+            return `${item.name} x ${item.quantity} - ${formatPrice(itemTotal)}`;
+
+        }).join("\n");
+
+        let message = `Hello Oma Hairline,
+
+I would like to place an order.
+
+CUSTOMER DETAILS
+Name: ${customerName}
+Phone: ${customerPhone}
+Delivery Address: ${customerAddress}
+
+ORDER DETAILS
+${orderItems}
+
+TOTAL: ${formatPrice(total)}`;
+
+        if (customerNote) {
+            message += `
+
+ORDER NOTE
+${customerNote}`;
+        }
+
+        message += `
+
+Thank you.`;
+
+        const whatsappNumber = "2349135028166";
+
+        const whatsappURL =
+            `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
+
+        window.open(whatsappURL, "_blank");
+
+    });
+
+}
