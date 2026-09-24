@@ -18,7 +18,7 @@ const products = [
     {
         id: "oma-003",
         name: "613 Wavy with HD Lace",
-        price: 49000,
+        price: 55000,
         category: "wigs",
         image: "images/product-3.jpg"
     },

@@ -336,13 +336,23 @@ button {
 }
 
 /* Product Card */
-
+.product-details{
+    margin: 30px;
+    padding: 20px;
+    background: #fff;
+    overflow: hidden;
+    border: 1px solid #f7f5f2;
+    border-radius: 10px;
+    box-shadow: inset  16 8 20 40px #0d0b09;
+    
+}
 .product-card {
     background: #fff;
     overflow: hidden;
     border: 1px solid #eee;
     border-radius: 10px;
     box-shadow: inset 0 8 4 16px #714916;
+    padding: auto;
 }
 
 /* Product Image */
@@ -405,6 +415,7 @@ button {
     width: 100%;
     padding: 13px;
     border: 1px solid #222;
+    border-radius: 10px ;
     background: #222;
     color: #fff;
     cursor: pointer;
@@ -867,7 +878,7 @@ button {
 ================================ */
 
 .site-footer {
-    background: #1b1b1b;
+    background: #935f32;
     color: #fff;
 }
 
@@ -1053,7 +1064,7 @@ button {
     }
 
     .product-image {
-        height: 280px;
+        height: 300px;
     }
 
     .product-info {
