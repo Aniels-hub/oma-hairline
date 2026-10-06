@@ -1008,6 +1008,11 @@ button {
 
 @media (max-width: 768px) {
 
+    .founder-image-section img {
+        width: 280px !important;
+        height: 280px !important;
+    }
+
     .nav-links {
         display: none;
     }
